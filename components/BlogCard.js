@@ -1,17 +1,34 @@
-function BlogCard({ id, short_desc, date_created, title, image }) {
+import Link from "next/link";
+
+function BlogCard({
+  short_desc,
+  date_created,
+  title,
+  image,
+  author,
+  slug,
+  id,
+}) {
+  function truncate(string, n) {
+    return string?.length > n ? string.substr(0, n - 1) + "..." : string;
+  }
   return (
-    <div key={id} className="group relative">
-      <div className="relative w-full h-80 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
-        <img src={image} className="w-full h-full object-center object-cover" />
-      </div>
-      <h3 className="mt-6 text-sm text-gray-500">
-        <span className="absolute inset-0" />
-        {title}
-      </h3>
-      <p className="text-base font-semibold text-gray-900">{short_desc}</p>
-      <p className="text-base text-gray-900">{date_created}</p>
-      {/* <p className="text-base text-gray-900">{author}</p> */}
-    </div>
+      <>
+        <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
+          <img
+            src={`http://localhost:8055/assets/${image}`}
+            className="w-full h-full object-center object-cover group-hover:opacity-75"
+          />
+        </div>
+        <h3 className="mt-1 text-lg font-medium text-gray-900">{title}</h3>
+        <p className=" mt-4 text-md text-gray-700">
+          {truncate(short_desc, 100)}
+        </p>
+        <p className=" mt-4 text-sm text-gray-400">Author: {author}</p>
+        <p className=" mt-2 text-xs text-gray-400">
+          {date_created.substr(0, 10)}
+        </p>
+      </>
   );
 }
 
